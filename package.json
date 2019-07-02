@@ -1,0 +1,12 @@
+{
+  "name": "exp-server",
+  "version": "0.1.0",
+  "description": "Backend of A web application that list & view contacts",
+  "main": "index.js",
+  "repository": "https://github.com/zhanjh/exp-server",
+  "author": "zjh <zhanjh@126.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
