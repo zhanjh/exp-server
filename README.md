@@ -32,3 +32,14 @@
 	* Architecture
 	* Possible future improvements
 	* Strategy to track user actions and detect anomalies when in production
+
+## Build dev environment
+
+Install nodejs: https://nodejs.org/en/download/package-manager/
+
+Install yarn: https://yarnpkg.com/en/docs/install#arch-stable
+
+```
+sudo pacman -S nodejs npm
+sudo pacman -S yarn
+```
