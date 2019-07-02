@@ -1,12 +1,16 @@
 {
   "name": "exp-server",
-  "version": "0.1.0",
-  "description": "Backend of A web application that list & view contacts",
-  "main": "index.js",
-  "repository": "https://github.com/zhanjh/exp-server",
-  "author": "zjh <zhanjh@126.com>",
-  "license": "MIT",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
   "dependencies": {
-    "express": "^4.17.1"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1"
   }
 }
