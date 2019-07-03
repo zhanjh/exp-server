@@ -1,4 +1,4 @@
-module.exports = require('../src/fun/deepMerge')(
+module.exports = require('../fun/deepMerge')(
   require('./config'),
   require('./config.local')
 );
