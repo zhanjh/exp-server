@@ -1,5 +1,5 @@
 test('MySQL Connection', () => {
-  const config = require('../config');
+  const config = require('../config')();
   const mysql = require('mysql');
   const conn = mysql.createConnection(config.mysql);
 

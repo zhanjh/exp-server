@@ -1,6 +1,6 @@
 describe('Config setup', () => {
   test('Should load mysql config', () => {
-    const config = require('../config');
+    const config = require('../config')();
     expect(config.hasOwnProperty('mysql')).toBe(true);
 
     const localConfig = require('../config/config.local');
