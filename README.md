@@ -98,3 +98,17 @@ sudo systemctl enable mariadb
 sudo /usr/bin/mysql_secure_installation
 mysql -u root -p
 ```
+
+Install mycli
+
+```
+sudo pip install mycli
+```
+
+Build Expedia Database
+
+```
+mysql -uroot -p < mysql.sql
+
+> grant all privileges on Expedia.* to 'exp'@'localhost' identified by '{db-passwd}';
+```
