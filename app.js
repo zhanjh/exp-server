@@ -8,7 +8,7 @@ const indexRouter = require('./routes/index');
 const contactRouter = require('./routes/contact');
 
 const app = express();
-const config = require('./src/fun/deepMerge')(require('./config/config'), require('./config/config.local.js'));
+const config = require('./config')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,6 +41,7 @@ app.use(function(err, req, res, next) {
 
 
 // test mysql todelete
+/*
 const mysql = require('mysql');
 const conn = mysql.createConnection(config.db);
 
@@ -53,5 +54,6 @@ conn.query(
   }
 );
 conn.end();
+*/
 
 module.exports = app;
