@@ -40,20 +40,4 @@ app.use(function(err, req, res, next) {
 });
 
 
-// test mysql todelete
-/*
-const mysql = require('mysql');
-const conn = mysql.createConnection(config.db);
-
-conn.connect();
-
-conn.query(
-  'SELECT * FROM Contact LIMIT 10',
-  (err, results, fields) => {
-    console.log(err, results, fields);
-  }
-);
-conn.end();
-*/
-
 module.exports = app;
