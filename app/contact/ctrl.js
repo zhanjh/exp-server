@@ -26,8 +26,16 @@ module.exports = {
     const contacts = await repo.list(offset, limit, asc, desc);
     res.json(contacts);
   },
-  filter: (req, res, next) => {
-    res.json({echo: 'filter contacts'});
+
+  filter: async (req, res, next) => {
+    const keyword = req.query['keyword'];
+    const offset = req.query['offset'];
+    const limit = req.query['limit'];
+    const asc = parseFields(req.query['asc']);
+    const desc = parseFields(req.query['desc']);
+
+    const contacts = await repo.filter(keyword, offset, limit, asc, desc);
+    res.json(contacts);
   },
   fetch: (req, res, next) => {
     res.json({echo:'fetch contact detail'});
