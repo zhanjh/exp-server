@@ -23,4 +23,27 @@ describe('SQL Builder', () => {
     );
     expect(params).toStrictEqual({keyword: '%some%',limit: 239, offset: 153});
   });
+
+  test('build fetch query', () => {
+    const sqlBuilder = require('../')
+    const [sql, params] = sqlBuilder.buildFetchQuery(100);
+
+    expect(sql).toBe(
+      'SELECT UserID, Title, Name, BirthDate, IsFavorite, DetailCount FROM ContactSummary'
+      + ' WHERE UserID = :userID'
+      + ' LIMIT 1',
+    );
+    expect(params).toStrictEqual({userID: 100});
+  });
+
+  test('build details query', () => {
+    const sqlBuilder = require('../')
+    const [sql, params] = sqlBuilder.buildDetailsQuery(100);
+
+    expect(sql).toBe(
+      'SELECT UserID, ContactDetailType, ContactDetailContent FROM ContactDetail'
+      + ' WHERE UserID = :userID'
+    );
+    expect(params).toStrictEqual({userID: 100});
+  });
 });

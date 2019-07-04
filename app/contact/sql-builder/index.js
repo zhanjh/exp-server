@@ -3,6 +3,7 @@ const dbOpts = require('../db-opts');
 const availables = dbOpts.contact.availables;
 
 const contactTable = 'ContactSummary';
+const contactDetailTable = 'ContactDetail';
 const descKey = 'DESC';
 const ascKey = 'ASC';
 
@@ -49,41 +50,12 @@ const buildWhereSegment = (keyword) => {
   ];
 };
 
+const buildFieldSegment = () => {
+  return Object.values(availables).join(', ');
+};
+
 const buildListQuery = (offsetIn, limitIn, ascIn, descIn) => {
   return buildFilterQuery('', offsetIn, limitIn, ascIn, descIn);
-  /*
-  const offset = filterInt(offsetIn, defaultOffset);
-  const limit = filterInt(limitIn, defaultLimit);
-  const asc = filterFields(ascIn);
-  const desc = filterFields(descIn);
-
-  const params = {
-    offset,
-    limit
-  };
-
-  const orders = [];
-  const ascAlias = 'asc';
-  const descAlias = 'desc';
-  if (asc.length > 0) {
-    orders.push([ascKey, asc.join(', ')]);
-    //params[ascAlias] = asc.join(', ');
-  }
-  if (desc.length > 0) {
-    orders.push([descKey, desc.join(', ')]);
-    //params[descAlias] = desc.join(', ');
-  }
-
-  const fieldSeg = Object.values(availables).join(', ');
-  const orderSeg = buildOrderSegment(orders);
-
-  const sql = `SELECT ${fieldSeg} FROM ${contactTable} ${orderSeg} LIMIT :offset, :limit`;
-
-  return [
-    sql,
-    params
-  ];
-  */
 };
 
 const buildFilterQuery = (keywordIn, offsetIn, limitIn, ascIn, descIn) => {
@@ -104,14 +76,12 @@ const buildFilterQuery = (keywordIn, offsetIn, limitIn, ascIn, descIn) => {
   const descAlias = 'desc';
   if (asc.length > 0) {
     orders.push([ascKey, asc.join(', ')]);
-    //params[ascAlias] = asc.join(', ');
   }
   if (desc.length > 0) {
     orders.push([descKey, desc.join(', ')]);
-    //params[descAlias] = desc.join(', ');
   }
 
-  const fieldSeg = Object.values(availables).join(', ');
+  const fieldSeg = buildFieldSegment();
   const orderSeg = buildOrderSegment(orders);
   const [whereSeg, whereParams] = buildWhereSegment(keyword);
 
@@ -127,6 +97,30 @@ const buildFilterQuery = (keywordIn, offsetIn, limitIn, ascIn, descIn) => {
   ];
 };
 
+const buildDetailsQuery = (userIDIn) => {
+  const userID = parseInt(userIDIn);
+  const fieldSeg = 'UserID, ContactDetailType, ContactDetailContent';
+  const sql = `SELECT ${fieldSeg} FROM ${contactDetailTable} WHERE UserID = :userID`;
+  const params = {userID}
+
+  return [
+    sql,
+    params
+  ];
+};
+
+const buildFetchQuery = (userIDIn) => {
+  const userID = parseInt(userIDIn);
+  if (isNaN(userID)) {
+    throw new Error('Incorrect userID format');
+  }
+
+  const fieldSeg = buildFieldSegment();
+
+  const sql = `SELECT ${fieldSeg} FROM ${contactTable} WHERE UserID = :userID LIMIT 1`;
+  return [sql, {userID}];
+};
+
 module.exports = {
   buildListQuery: (offset, limit, asc, desc) => {
     return buildListQuery(offset, limit, asc, desc);
@@ -135,5 +129,9 @@ module.exports = {
     return buildFilterQuery(keywords, offset, limit, asc, desc);
   },
   buildFetchQuery: (userID) => {
+    return buildFetchQuery(userID);
+  },
+  buildDetailsQuery: (userID) => {
+    return buildDetailsQuery(userID);
   }
 };

@@ -37,7 +37,10 @@ module.exports = {
     const contacts = await repo.filter(keyword, offset, limit, asc, desc);
     res.json(contacts);
   },
-  fetch: (req, res, next) => {
-    res.json({echo:'fetch contact detail'});
+  fetch: async (req, res, next) => {
+    const userID = req.query['userID'];
+    const contact = await repo.fetch(userID);
+
+    res.json(contact);
   },
 };

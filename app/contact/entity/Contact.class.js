@@ -19,6 +19,10 @@ class Contact {
     this.isFavorite = parseInt(data[isFavoriteField]) === 1;
     this.detailCount = parseInt(data[detailCountField]);
   }
+
+  setDetails(details) {
+    this.details = details;
+  }
 }
 
 module.exports = Contact;
