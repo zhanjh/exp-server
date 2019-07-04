@@ -112,3 +112,17 @@ mysql -uroot -p < mysql.sql
 
 > grant all privileges on Expedia.* to 'exp'@'localhost' identified by '{db-passwd}';
 ```
+
+## Optimize Database
+
+```
+ALTER TABLE `ContactDetail` ADD KEY `UserID` (`UserID`);
+```
+
+create view `ContactSummary`
+
+```sql
+CREATE VIEW `ContactSummary` AS
+select c.*, count(d.`UserID`) as DetailCount
+from (`Contact` `c` left join `ContactDetail` `d` on(`c`.`UserID` = `d`.`UserID`)) group by `d`.`UserID`
+```

@@ -1,7 +1,13 @@
 const express = require('express');
-const contact = require('../app/contact');
+const ctrl = require('./ctrl');
 
 const router = express.Router();
+router.get('/', ctrl.index);
+router.get('/list', ctrl.list);
+router.get('/filter', ctrl.filter);
+router.get('/fetch', ctrl.fetch);
+
+/*
 router.get('/', (req, res, next) => {
   res.json({echo: 'contact index'});
 });
@@ -14,5 +20,6 @@ router.get('/filter', (req, res, next) => {
 router.get('/fetch', (req, res, next) => {
   res.json({echo:'fetch contact detail'});
 });
+*/
 
 module.exports = router;

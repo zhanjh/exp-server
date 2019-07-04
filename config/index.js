@@ -1,4 +1,4 @@
-const configSingleton = require('../fun/deepMerge')(
+const configSingleton = require('../lib/deepMerge')(
   require('./config'),
   require('./config.local')
 );
