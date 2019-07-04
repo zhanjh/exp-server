@@ -10,7 +10,6 @@ const parseFields = (input) => {
 
   console.log('parseFields: ', input);
   return [];
-  //throw new Error('parseFields: unknown input format ');
 };
 
 module.exports = {

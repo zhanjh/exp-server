@@ -6,8 +6,10 @@ const ContactDetail = require('./entity/ContactDetail.class');
 module.exports = {
   list: async (offset, limit, asc, desc) => {
     const [sql, params] = sqlBuilder.buildListQuery(offset, limit, asc, desc);
-    const conn = await db.conn();
     console.log(sql, params);
+
+    const conn = await db.conn();
+
     const [rows, fields] = await conn.execute(sql, params);
     const contacts = rows.map(row => new Contact(row));
     await conn.end();
@@ -17,8 +19,9 @@ module.exports = {
 
   filter: async (keyword, offset, limit, asc, desc) => {
     const [sql, params] = sqlBuilder.buildFilterQuery(keyword, offset, limit, asc, desc);
-    const conn = await db.conn();
     console.log(sql, params);
+
+    const conn = await db.conn();
     const [rows, fields] = await conn.execute(sql, params);
     const contacts = rows.map(row => new Contact(row));
     await conn.end();
@@ -30,6 +33,8 @@ module.exports = {
     const conn = await db.conn();
 
     const [sql, params] = sqlBuilder.buildFetchQuery(userID);
+    console.log(sql, params);
+
     const [rows, fields] = await conn.execute(sql, params);
     if (rows.length < 1) {
       return null;
@@ -37,6 +42,8 @@ module.exports = {
     const contact = new Contact(rows[0]);
 
     const [detailsSql, detailsParams] = sqlBuilder.buildDetailsQuery(userID);
+    console.log(detailsSql, detailsParams);
+
     const [detailsRows, detailsFields] = await conn.execute(detailsSql, detailsParams);
     const details = detailsRows.map(detail => new ContactDetail(detail));
 

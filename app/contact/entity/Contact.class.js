@@ -1,8 +1,3 @@
-/*
-const dbOpts = require('../db-opts');
-const availables = dbOpts.contact.availables;
-*/
-
 const userIDField = 'UserID';
 const titleField = 'Title';
 const nameField = 'Name';
