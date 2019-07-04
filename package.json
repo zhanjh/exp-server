@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-		"jest": "jest",
+    "jest": "jest",
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
@@ -14,7 +14,7 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
-    "mysql": "^2.17.1"
+    "mysql2": "^1.6.5"
   },
   "devDependencies": {
     "jest": "^24.8.0",
