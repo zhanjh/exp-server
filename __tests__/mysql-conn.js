@@ -1,27 +1,7 @@
-test('MySQL Connection', () => {
-  const config = require('../config')();
-  const mysql = require('mysql');
-  const conn = mysql.createConnection(config.mysql);
-
-  conn.connect();
-  conn.query('SELECT 1', (err, results, fields) => {
-    expect(err).toBeNull();
-  });
-  conn.end();
+test('MySQL Connection', async () => {
+  const db = require('../db');
+  const conn = await db.conn();
+  const [rows, fields] = await conn.execute('SELECT :x+:y as sum', {x: 21, y: 7});
+  expect(rows[0]['sum']).toBe(28);
+  await conn.end();
 });
-
-/*
-const mysql = require('mysql');
-const conn = mysql.createConnection(config.db);
-
-conn.connect();
-
-conn.query(
-  'SELECT * FROM Contact LIMIT 10',
-  (err, results, fields) => {
-    console.log(err, results, fields);
-  }
-);
-conn.end();
-*/
-
