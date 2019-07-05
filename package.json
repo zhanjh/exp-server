@@ -17,6 +17,7 @@
     "mysql2": "^1.6.5"
   },
   "devDependencies": {
+    "eslint": "^6.0.1",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1"
   }

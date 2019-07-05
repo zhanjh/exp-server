@@ -17,8 +17,8 @@ const filterFields = (fields) => {
 
   return fields
     .map(item => item.toLowerCase())
-    .filter(item => availables.hasOwnProperty(item))
-    .map(item => availables[item])
+    .filter(item => Object.prototype.hasOwnProperty.call(availables, item))
+    .map(item => availables[item]);
 };
 
 const filterInt = (input, defaultVal = 0) => {
@@ -31,10 +31,9 @@ const buildOrderSegment = (orders) => {
     return '';
   }
   const sql = orders.map(item => {
-      const orderType = item[0].toUpperCase() === descKey ? descKey : ascKey;
-      return item[1] + ' ' + orderType;
-    })
-    .join(' ');
+    const orderType = item[0].toUpperCase() === descKey ? descKey : ascKey;
+    return item[1] + ' ' + orderType;
+  }).join(' ');
 
   return 'ORDER BY ' + sql + ' ';
 };
@@ -72,8 +71,6 @@ const buildFilterQuery = (keywordIn, offsetIn, limitIn, ascIn, descIn) => {
   };
 
   const orders = [];
-  const ascAlias = 'asc';
-  const descAlias = 'desc';
   if (asc.length > 0) {
     orders.push([ascKey, asc.join(', ')]);
   }
@@ -101,7 +98,7 @@ const buildDetailsQuery = (userIDIn) => {
   const userID = parseInt(userIDIn);
   const fieldSeg = 'UserID, ContactDetailType, ContactDetailContent';
   const sql = `SELECT ${fieldSeg} FROM ${contactDetailTable} WHERE UserID = :userID`;
-  const params = {userID}
+  const params = {userID};
 
   return [
     sql,

@@ -13,10 +13,10 @@ const parseFields = (input) => {
 };
 
 module.exports = {
-  index: (req, res, next) => {
+  index: (req, res) => {
     res.json({echo: 'contact index'});
   },
-  list: async (req, res, next) => {
+  list: async (req, res) => {
 
     const offset = req.query['offset'];
     const limit = req.query['limit'];
@@ -26,7 +26,7 @@ module.exports = {
     res.json(contacts);
   },
 
-  filter: async (req, res, next) => {
+  filter: async (req, res) => {
     const keyword = req.query['keyword'];
     const offset = req.query['offset'];
     const limit = req.query['limit'];
@@ -36,13 +36,13 @@ module.exports = {
     const contacts = await repo.filter(keyword, offset, limit, asc, desc);
     res.json(contacts);
   },
-  fetch: async (req, res, next) => {
+  fetch: async (req, res) => {
     const userID = req.query['userID'];
     const contact = await repo.fetch(userID);
 
     res.json(contact);
   },
-  total: async (req, res, next) => {
+  total: async (req, res) => {
     // todo
     res.json({total: 1000});
   }

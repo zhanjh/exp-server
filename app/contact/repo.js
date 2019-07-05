@@ -10,7 +10,7 @@ module.exports = {
 
     const conn = await db.conn();
 
-    const [rows, fields] = await conn.execute(sql, params);
+    const [rows, ] = await conn.execute(sql, params);
     const contacts = rows.map(row => new Contact(row));
     await conn.end();
 
@@ -22,7 +22,7 @@ module.exports = {
     console.log(sql, params);
 
     const conn = await db.conn();
-    const [rows, fields] = await conn.execute(sql, params);
+    const [rows, ] = await conn.execute(sql, params);
     const contacts = rows.map(row => new Contact(row));
     await conn.end();
 
@@ -35,7 +35,7 @@ module.exports = {
     const [sql, params] = sqlBuilder.buildFetchQuery(userID);
     console.log(sql, params);
 
-    const [rows, fields] = await conn.execute(sql, params);
+    const [rows, ] = await conn.execute(sql, params);
     if (rows.length < 1) {
       return null;
     }
@@ -44,7 +44,7 @@ module.exports = {
     const [detailsSql, detailsParams] = sqlBuilder.buildDetailsQuery(userID);
     console.log(detailsSql, detailsParams);
 
-    const [detailsRows, detailsFields] = await conn.execute(detailsSql, detailsParams);
+    const [detailsRows, ] = await conn.execute(detailsSql, detailsParams);
     const details = detailsRows.map(detail => new ContactDetail(detail));
 
     contact.setDetails(details);

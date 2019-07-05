@@ -1,6 +1,6 @@
 describe('SQL Builder', () => {
   test('build list query', () => {
-    const sqlBuilder = require('../')
+    const sqlBuilder = require('../');
     const [sql, params] = sqlBuilder.buildListQuery(153, 239, ['UserID', 'Title'], ['Name']);
 
     expect(sql).toBe(
@@ -12,7 +12,7 @@ describe('SQL Builder', () => {
   });
 
   test('build filter query', () => {
-    const sqlBuilder = require('../')
+    const sqlBuilder = require('../');
     const [sql, params] = sqlBuilder.buildFilterQuery('some', 153, 239, ['UserID', 'Title'], ['Name']);
 
     expect(sql).toBe(
@@ -25,7 +25,7 @@ describe('SQL Builder', () => {
   });
 
   test('build fetch query', () => {
-    const sqlBuilder = require('../')
+    const sqlBuilder = require('../');
     const [sql, params] = sqlBuilder.buildFetchQuery(100);
 
     expect(sql).toBe(
@@ -37,7 +37,7 @@ describe('SQL Builder', () => {
   });
 
   test('build details query', () => {
-    const sqlBuilder = require('../')
+    const sqlBuilder = require('../');
     const [sql, params] = sqlBuilder.buildDetailsQuery(100);
 
     expect(sql).toBe(
