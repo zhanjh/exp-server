@@ -42,4 +42,8 @@ module.exports = {
 
     res.json(contact);
   },
+  total: async (req, res, next) => {
+    // todo
+    res.json({total: 1000});
+  }
 };
