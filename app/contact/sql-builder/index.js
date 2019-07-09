@@ -2,7 +2,8 @@ const dbOpts = require('../db-opts');
 
 const availables = dbOpts.contact.availables;
 
-const contactTable = 'ContactSummary';
+const contactTable = 'Contact';
+const contactSummaryTable = 'ContactSummary';
 const contactDetailTable = 'ContactDetail';
 const descKey = 'DESC';
 const ascKey = 'ASC';
@@ -86,11 +87,33 @@ const buildFilterQuery = (keywordIn, offsetIn, limitIn, ascIn, descIn) => {
     Object.assign(params, whereParams);
   }
 
-  const sql = `SELECT ${fieldSeg} FROM ${contactTable} ${whereSeg}${orderSeg}LIMIT :offset, :limit`;
+  const sql = `SELECT ${fieldSeg} FROM ${contactSummaryTable} ${whereSeg}${orderSeg}LIMIT :offset, :limit`;
 
   return [
     sql,
     params
+  ];
+};
+
+const countFilterQuery = (keywordIn) => {
+  const keyword = keywordIn.trim();
+  const params = {};
+  const [whereSeg, whereParams] = buildWhereSegment(keyword);
+  if (whereSeg !== '') {
+    Object.assign(params, whereParams);
+  }
+  const sql = `SELECT COUNT(1) total FROM ${contactTable} ${whereSeg}`;
+  return [
+    sql.trim(),
+    params
+  ];
+};
+
+const countListQuery = () => {
+  const sql = `SELECT COUNT(1) total FROM ${contactTable}`;
+  return [
+    sql.trim(),
+    {}
   ];
 };
 
@@ -114,7 +137,7 @@ const buildFetchQuery = (userIDIn) => {
 
   const fieldSeg = buildFieldSegment();
 
-  const sql = `SELECT ${fieldSeg} FROM ${contactTable} WHERE UserID = :userID LIMIT 1`;
+  const sql = `SELECT ${fieldSeg} FROM ${contactSummaryTable} WHERE UserID = :userID LIMIT 1`;
   return [sql, {userID}];
 };
 
@@ -130,5 +153,11 @@ module.exports = {
   },
   buildDetailsQuery: (userID) => {
     return buildDetailsQuery(userID);
+  },
+  countFilterQuery: (keyword) => {
+    return countFilterQuery(keyword);
+  },
+  countListQuery: () => {
+    return countListQuery();
   }
 };

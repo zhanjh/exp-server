@@ -24,6 +24,26 @@ describe('SQL Builder', () => {
     expect(params).toStrictEqual({keyword: '%some%',limit: 239, offset: 153});
   });
 
+  test('count filter query', () => {
+    const sqlBuilder = require('../');
+    const [sql, params] = sqlBuilder.countFilterQuery('some');
+
+    expect(sql).toBe(
+      'SELECT COUNT(1) total FROM Contact'
+      + ' WHERE Name LIKE :keyword'
+    );
+    expect(params).toStrictEqual({keyword: '%some%'});
+  });
+
+  test('count list query', () => {
+    const sqlBuilder = require('../');
+    const [sql,] = sqlBuilder.countListQuery('some');
+
+    expect(sql).toBe(
+      'SELECT COUNT(1) total FROM Contact'
+    );
+  });
+
   test('build fetch query', () => {
     const sqlBuilder = require('../');
     const [sql, params] = sqlBuilder.buildFetchQuery(100);
