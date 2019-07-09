@@ -17,6 +17,15 @@ module.exports = {
     return contacts;
   },
 
+  countList: async () => {
+    const [sql, params] = sqlBuilder.countListQuery();
+    console.log(sql, params);
+
+    const conn = await db.conn();
+    const [rows, ] = await conn.execute(sql, params);
+    return parseInt(rows[0]['total']);
+  },
+
   filter: async (keyword, offset, limit, asc, desc) => {
     const [sql, params] = sqlBuilder.buildFilterQuery(keyword, offset, limit, asc, desc);
     console.log(sql, params);
@@ -27,6 +36,15 @@ module.exports = {
     await conn.end();
 
     return contacts;
+  },
+
+  countFilter: async (keyword) => {
+    const [sql, params] = sqlBuilder.countFilterQuery(keyword);
+    console.log(sql, params);
+
+    const conn = await db.conn();
+    const [rows, ] = await conn.execute(sql, params);
+    return parseInt(rows[0]['total']);
   },
 
   fetch: async (userID) => {

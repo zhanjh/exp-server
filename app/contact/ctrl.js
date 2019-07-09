@@ -23,7 +23,8 @@ module.exports = {
     const asc = parseFields(req.query['asc']);
     const desc = parseFields(req.query['desc']);
     const contacts = await repo.list(offset, limit, asc, desc);
-    res.json(contacts);
+    const total  = await repo.countList();
+    res.json({total, contacts});
   },
 
   filter: async (req, res) => {
@@ -34,7 +35,8 @@ module.exports = {
     const desc = parseFields(req.query['desc']);
 
     const contacts = await repo.filter(keyword, offset, limit, asc, desc);
-    res.json(contacts);
+    const total  = await repo.countFilter(keyword);
+    res.json({total, contacts});
   },
   fetch: async (req, res) => {
     const userID = req.query['userID'];
