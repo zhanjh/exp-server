@@ -7,7 +7,7 @@ const detailCountField = 'DetailCount';
 
 class Contact {
   constructor(data) {
-    this.userId = parseInt(data[userIDField]);
+    this.userID = parseInt(data[userIDField]);
     this.title = data[titleField].trim();
     this.name = data[nameField].trim();
     this.birthDate = data[birthDateField];

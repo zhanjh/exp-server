@@ -4,7 +4,7 @@ const contentField = 'ContactDetailContent';
 
 class ContactDetail {
   constructor(data) {
-    this.userId = parseInt(data[userIDField]);
+    this.userID = parseInt(data[userIDField]);
     this.type = data[typeField].trim();
     this.content = data[contentField].trim();
   }
