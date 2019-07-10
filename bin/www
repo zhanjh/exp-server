@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('exp-server:server');
+var debug = require('debug')('express:server');
 var http = require('http');
 
 /**
@@ -25,7 +25,8 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port, () => console.log(`listening on port ${port}!`));
+//server.listen(port, () => console.log(`listening on port ${port}!`));
+server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -64,16 +65,16 @@ function onError(error) {
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
+  case 'EACCES':
+    console.error(bind + ' requires elevated privileges');
+    process.exit(1);
+    break;
+  case 'EADDRINUSE':
+    console.error(bind + ' is already in use');
+    process.exit(1);
+    break;
+  default:
+    throw error;
   }
 }
 
@@ -86,5 +87,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  debug('Listening on ' + bind + ' pid:' + process.pid);
 }

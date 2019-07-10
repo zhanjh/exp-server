@@ -2,11 +2,12 @@ const sqlBuilder = require('./sql-builder');
 const db = require('../../db');
 const Contact = require('./entity/Contact.class');
 const ContactDetail = require('./entity/ContactDetail.class');
+const logger = require('../../lib/logger');
 
 module.exports = {
   list: async (offset, limit, asc, desc) => {
     const [sql, params] = sqlBuilder.buildListQuery(offset, limit, asc, desc);
-    console.log(sql, params);
+    logger.info(sql, params);
 
     const conn = await db.conn();
 
@@ -19,7 +20,7 @@ module.exports = {
 
   countList: async () => {
     const [sql, params] = sqlBuilder.countListQuery();
-    console.log(sql, params);
+    logger.info(sql, params);
 
     const conn = await db.conn();
     const [rows, ] = await conn.execute(sql, params);
@@ -28,7 +29,7 @@ module.exports = {
 
   filter: async (keyword, offset, limit, asc, desc) => {
     const [sql, params] = sqlBuilder.buildFilterQuery(keyword, offset, limit, asc, desc);
-    console.log(sql, params);
+    logger.info(sql, params);
 
     const conn = await db.conn();
     const [rows, ] = await conn.execute(sql, params);
@@ -40,7 +41,7 @@ module.exports = {
 
   countFilter: async (keyword) => {
     const [sql, params] = sqlBuilder.countFilterQuery(keyword);
-    console.log(sql, params);
+    logger.info(sql, params);
 
     const conn = await db.conn();
     const [rows, ] = await conn.execute(sql, params);
@@ -51,7 +52,7 @@ module.exports = {
     const conn = await db.conn();
 
     const [sql, params] = sqlBuilder.buildFetchQuery(userID);
-    console.log(sql, params);
+    logger.info(sql, params);
 
     const [rows, ] = await conn.execute(sql, params);
     if (rows.length < 1) {
@@ -60,7 +61,7 @@ module.exports = {
     const contact = new Contact(rows[0]);
 
     const [detailsSql, detailsParams] = sqlBuilder.buildDetailsQuery(userID);
-    console.log(detailsSql, detailsParams);
+    logger.info(detailsSql, detailsParams);
 
     const [detailsRows, ] = await conn.execute(detailsSql, detailsParams);
     const details = detailsRows.map(detail => new ContactDetail(detail));

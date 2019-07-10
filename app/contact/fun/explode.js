@@ -7,7 +7,6 @@ const explode = (input, delimiter = ',') => {
     return input;
   }
 
-  console.log('explode failed: ', input);
   return [];
 };
 
