@@ -1,16 +1,6 @@
 const repo = require('./repo');
+const explode = require('./fun/explode');
 
-const parseFields = (input) => {
-  if (typeof input === 'string') {
-    return input.split(',').map(item => item.trim());
-  }
-  if (Array.isArray(input)) {
-    return input;
-  }
-
-  console.log('parseFields: ', input);
-  return [];
-};
 
 module.exports = {
   index: (req, res) => {
@@ -20,8 +10,8 @@ module.exports = {
 
     const offset = req.query['offset'];
     const limit = req.query['limit'];
-    const asc = parseFields(req.query['asc']);
-    const desc = parseFields(req.query['desc']);
+    const asc = explode(req.query['asc']);
+    const desc = explode(req.query['desc']);
     const contacts = await repo.list(offset, limit, asc, desc);
     const total  = await repo.countList();
     res.json({total, contacts});
@@ -31,8 +21,8 @@ module.exports = {
     const keyword = req.query['keyword'];
     const offset = req.query['offset'];
     const limit = req.query['limit'];
-    const asc = parseFields(req.query['asc']);
-    const desc = parseFields(req.query['desc']);
+    const asc = explode(req.query['asc']);
+    const desc = explode(req.query['desc']);
 
     const contacts = await repo.filter(keyword, offset, limit, asc, desc);
     const total  = await repo.countFilter(keyword);
